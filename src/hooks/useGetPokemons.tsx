@@ -2,44 +2,53 @@ import { useEffect, useState } from "react";
 
 import { apiUrl } from "@/utils/constants.d"
 
-interface IApiData {
-  count:number,
-  next:string | null,
-  previous:string | null,
-  results: {
-    name:string,
-    url:string
-  }[]
-}
+import { IPokemonEntry, IPokemonsResponse } from "@/utils/Interfaces/IPokemon";
+import { IGetPokemons } from "@/utils/Interfaces/IGetPokemons";
 
-interface IGetPokemons {
-  data:IApiData | undefined,
-  loading: boolean
-}
 
 export default function useGetPokemons():IGetPokemons
 {
-  const [apiData, setApiData] = useState<IApiData>()
+  const [apiData, setApiData] = useState<IPokemonsResponse>()
+  const [pokeApi, setPokeApi] = useState<string>(apiUrl)
+  const [pokemonEntries, setPokemonEntries] = useState<IPokemonEntry[]>([])
+  const [hasMore, setHasMore] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true)
-        const response = await fetch(apiUrl);
+        const response = await fetch(pokeApi);
         const data = await response.json();
+
         setApiData(data);
+
         setLoading(false)
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
     fetchData();
+  },[pokeApi])
 
-  },[])
+  useEffect(() => {
+    if(apiData){
+      setPokemonEntries([...pokemonEntries,...apiData.results]);
+      setHasMore(apiData.next !== null);
+    }
+  },[apiData])
+
+  function morePokemons()
+  {
+    if(hasMore && apiData){
+      setPokeApi( apiData.next! )
+    }
+  }
 
   return {
-    data: apiData,
-    loading
+    pokemonEntries,
+    hasMore,
+    loading,
+    morePokemons
   }
 }
