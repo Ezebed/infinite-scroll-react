@@ -55,7 +55,7 @@ function App() {
       
       <button disabled={loading} onClick={hola}>api</button>
       <button disabled={!hasMore} onClick={morePokemons}>more</button>
-      <div ref={loadRef} className="px-4 py-2 my-2 bg-lime-500" >loading...</div>
+      { hasMore && <div ref={loadRef} className="px-4 py-2 my-2 bg-lime-500" >loading...</div> }
       <HolaMundo name='mundo' />
         
     </>
