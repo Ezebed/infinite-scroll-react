@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
 
-export default function useGetPokemonData(pokeUrl:string)
+import { IPokemonData } from "@/utils/Interfaces/IPokemon";
+import { IGetPokemonData } from "@/utils/Interfaces/IGetPokemonData";
+
+
+export default function useGetPokemonData(pokeUrl:string): IGetPokemonData
 {
-    const [pokeData, setPokeData] = useState()
+    const [pokeData, setPokeData] = useState<IPokemonData>()
 
     useEffect(() => {
         const FetchData = async () => {
@@ -15,8 +19,12 @@ export default function useGetPokemonData(pokeUrl:string)
                 console.error("error: "+error)
             }
         }
-
         FetchData()
     },[])
+
+    return {
+        pokeName: "",
+        pokeImg: ""
+    }    
 
 }
