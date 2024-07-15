@@ -6,6 +6,7 @@ import HolaMundo from "@/components/hola"
 import useGetPokemons from "@/hooks/useGetPokemons"
 
 import { IPokemonEntry } from "./utils/Interfaces/IPokemon"
+import PokeCard from "./components/PokeCard"
 
 function App() {
 
@@ -36,22 +37,13 @@ function App() {
     }
   },[morePokemons])
   
-
-  // function loadMore()
-  // {
-  //   const observer = new IntersectionObserver((entries, observer) => {
-  //     entries.forEach((entry) => {
-  //       if(entry.isIntersecting)
-  //       {
-  //         morePokemons()
-  //       }
-  //     })
-  //   })
-  // }
-
   return (
     <>
-      {pokemonEntries.map((data:IPokemonEntry,index:number) => ( <div key={index} className="px-4 py-2 my-2 text-black bg-slate-500 rounded-sm">{data.name}</div> ))}
+
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2"> 
+        {pokemonEntries.map((data:IPokemonEntry,index:number) => ( <PokeCard key={index} {...data} /> ))}
+        
+      </div>
       
       <button disabled={loading} onClick={hola}>api</button>
       <button disabled={!hasMore} onClick={morePokemons}>more</button>
