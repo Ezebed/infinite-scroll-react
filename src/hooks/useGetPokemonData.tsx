@@ -60,7 +60,7 @@ export default function useGetPokemonData(pokeUrl:string): IGetPokemonData
                 }
                 firstColor = pokeColors[firstType as keyof typeof pokeColors]
                 secondColor = pokeColors[secondType as keyof typeof pokeColors]
-                setPokeColor(`linear-gradient(300deg, ${secondColor} 50%, ${firstColor} 50%)`)
+                setPokeColor(`linear-gradient(300deg, ${secondColor} 49%, ${firstColor} 51%)`)
                 break
             default:
                 setPokeColor("#777")
