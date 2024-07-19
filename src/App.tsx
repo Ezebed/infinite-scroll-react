@@ -8,7 +8,7 @@ import PokeCard from "./components/PokeCard"
 
 function App() {
 
-  const {loading, pokemonEntries, hasMore, morePokemons }  = useGetPokemons()
+  const { pokemonEntries, hasMore, morePokemons }  = useGetPokemons()
   const loadRef = useRef<HTMLDivElement>(null)
 
 
