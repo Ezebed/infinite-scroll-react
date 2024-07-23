@@ -1,28 +1,26 @@
-import { beforeEach, describe, expect, test } from 'vitest'
-import { render, screen } from '@testing-library/react'
-import { IPokemonEntry } from '@/utils/Interfaces/IPokemon'
+import { beforeEach, describe, expect, test } from "vitest";
+import { render, screen } from "@testing-library/react";
+import { IPokemonEntry } from "@/utils/Interfaces/IPokemon";
 
-import PokeCard from './PokeCard'
+import PokeCard from "./PokeCard";
 
-const pokeData:IPokemonEntry = {
-    name: "pikachu",
-    url: "https://pokeapi.co/api/v2/pokemon/pikachu"
-}
+const pokeData: IPokemonEntry = {
+  name: "pikachu",
+  url: "https://pokeapi.co/api/v2/pokemon/pikachu",
+};
 
-describe( "Pokemon card Component", () => {
+describe("Pokemon card Component", () => {
+  beforeEach(() => {
+    render(<PokeCard {...pokeData} />);
+  });
 
-    beforeEach(() => {
-        render(<PokeCard {...pokeData} />)
-    })
+  test("true is true", () => {
+    expect(true).toBeTruthy();
+  });
 
-    test("true is true",() => {
-        expect(true).toBeTruthy()
-    })
+  test("component is renderer", async () => {
+    let component = await screen.findByText(/pikachu/i);
 
-    test("component is renderer", async () => {
-        let component = await screen.findByText(/pikachu/i)
-
-        expect(component).toBeDefined()
-    })
-
-})
+    expect(component).toBeDefined();
+  });
+});
